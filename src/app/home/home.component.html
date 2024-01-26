@@ -1,0 +1,115 @@
+<!-- <div>
+    <h2>Data Api NEWSHORE_ API 1</h2>
+    <ul>
+        <li *ngFor="let item of data1">
+            {{item.flightNumber+' '+ item.departureStation+'-'+item.arrivalStation+' ('+item.flightCarrier+')'}}
+        </li>
+    </ul>
+</div>
+<div>
+    <h2>Data Api NEWSHORE_ API 2</h2>
+    <ul>
+        <li *ngFor="let item of data2">
+            {{item.flightNumber+' '+ item.departureStation+'-'+item.arrivalStation+' ('+item.flightCarrier+')'}}
+        </li>
+    </ul>
+</div>
+<div>
+    <h2>Data Api NEWSHORE_ API 3</h2>
+    <ul>
+        <li *ngFor="let item of data3">
+            {{item.flightNumber+' '+ item.departureStation+'-'+item.arrivalStation+' ('+item.flightCarrier+')'}}
+        </li>
+    </ul>
+</div> -->
+<div class="container contenedorPadre">
+    <div class="card" *ngIf="!respuestaRuta">
+        <div class="imagen">
+            <img src="../../assets/img/newshore_.png" alt="" width="100%">
+        </div>
+
+        <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+            <label for="origin">Origen:</label>
+            <input type="text" id="origin" formControlName="origin" (input)="onInputChange('origin')" />
+            <div *ngIf="formulario.get('origin')?.hasError('required') && formulario.get('origin')?.touched"
+                class="alert alert-danger d-flex align-items-center" role="alert">
+                El campo es obligatorio.
+            </div>
+            <div *ngIf="formulario.get('origin')?.hasError('minlength') && formulario.get('origin')?.touched"
+                class="alert alert-danger d-flex align-items-center" role="alert">
+                <div>
+                    El campo debe tener exactamente 3 caracteres.
+                </div>
+            </div>
+
+            <label for="destination">Destino:</label>
+            <input type="text" id="destination" formControlName="destination" (input)="onInputChange('destination')" />
+            <div *ngIf="formulario.get('destination')?.hasError('required') && formulario.get('destination')?.touched"
+                class="alert alert-danger d-flex align-items-center" role="alert">
+                El campo es obligatorio.
+            </div>
+            <div *ngIf="formulario.get('destination')?.hasError('minlength') && formulario.get('destination')?.touched"
+                class="alert alert-danger d-flex align-items-center" role="alert">
+                <div>
+                    El campo debe tener exactamente 3 caracteres.
+                </div>
+            </div>
+            <div *ngIf="matchFields" class="alert alert-danger d-flex align-items-center" role="alert">
+                El destino no puede ser el mismo que el origen.
+            </div>
+
+            <button type="submit" [disabled]="formulario.invalid">Obtener Ruta</button>
+        </form>
+    </div>
+
+    <div class="card" *ngIf="respuestaRuta">
+        <div class="imagen">
+            <img src="../../assets/img/newshore_.png" alt="" width="100%">
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Precio</th>
+                    <!-- Otros encabezados según tu estructura de datos -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Iteracion -->
+                <tr *ngFor="let ruta of dataNewRuta?.flights">
+                    <td>{{ ruta.origin }}</td>
+                    <td>{{ ruta.destination }}</td>
+                    <td *ngIf="currency === 'USD'">{{ (ruta.price) + ' '+currency }}</td>
+                    <td *ngIf="currency === 'COP'">{{ (ruta.price * 3939.25).toLocaleString('es-ES') + ' '+currency }}
+                    </td>
+                    <td *ngIf="currency === 'EUR'">{{ (ruta.price * 0.92) + ' '+currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="footer">
+            <h5 *ngIf="currency === 'USD'">Total a pagar: {{calcularTotal()+' '+currency}} </h5>
+            <h5 *ngIf="currency === 'COP'">Total a pagar: {{calcularTotalCOP().toLocaleString()+' '+currency}} </h5>
+            <h5 *ngIf="currency === 'EUR'">Total a pagar: {{calcularTotalEUR()+' '+currency}} </h5>
+        </div>
+
+        <div class="comeBack">
+            <a href="#" (click)="changueVisibility($event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+                </svg>
+                Volver a buscar
+            </a>
+            <div class="currency-select">
+                <label for="currencySelect">Seleccionar Moneda:</label>
+                <select id="currencySelect" (change)="onChangeCurrency($event)">
+                    <option value="USD">USD</option>
+                    <option value="COP">COP</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

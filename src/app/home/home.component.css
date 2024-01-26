@@ -1,0 +1,85 @@
+/* Boostrap */
+.contenedorPadre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    top: 100px;
+    width: 500px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.imagen {
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos para los elementos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+input {
+    padding: 8px;
+    margin-bottom: 16px;
+    width: 50%;
+    box-sizing: border-box;
+    border-radius: 24px;
+    border: 1px solid gray;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+/* Estilos para los mensajes de error */
+div[role="alert"] {
+    color: #dc3545;
+    margin-top: 10px;
+}
+
+/* Table */
+.table {
+    margin-top: 10px;
+}
+
+/* Foooter */
+.footer {
+    top: 20px;
+    background-color: beige;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 8px;
+    display: flex;
+}
+
+.footer h5 {
+    margin-bottom: 0;
+    text-align: end;
+    padding: 5px;
+    width: 100%;
+}
+
+/* ComewBAck */
+.comeBack {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
